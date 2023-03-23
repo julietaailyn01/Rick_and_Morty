@@ -1,0 +1,22 @@
+.body{
+    padding: 10px;
+}
+.input{
+    border-radius: 5px;
+    margin: 5px;
+
+}
+
+.btn{
+    background-color: rgb(46, 46, 46);
+    color: white;
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+}
+
+.btn:hover{
+    box-shadow: 3px 3px 5px greenyellow;
+    background-color: green;
+    color: #000;
+}

@@ -1,62 +1,87 @@
-import './App.css'
-import Card from './components/Card.jsx'
-import Cards from './components/Cards.jsx'
-import characters, { Rick } from './data.js'
-import Header from './components/Header'
-import styled from 'styled-components'
-import img from './img/595000.jpg'
+import Cards from './components/Cards/Cards.jsx'
+import Nav from "./components/Nav/Nav.jsx"
+import { useState,useEffect } from 'react'
+import { Route,Routes,useNavigate , useLocation } from 'react-router-dom'
+import About from './components/About/About.jsx'
+import Detail from "./components/Detail/Detail.jsx"
+import Form from './components/Form/Form'
+import Header from './components/Header/Header'
+import Favorites from "./components/Favorites/Favorites"
+// import { render } from '@testing-library/react'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap";
+import styles from "./components/Nav/Nav.module.css";
 
-const Divprincipal = styled.div `
-  background-image: url(${img});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  color: white; 
-  font-family: courier;
- 
-  
-
-`
-
-const DivCard = styled.div `
-  
-  
-`
-
-const DivCards = styled.div `
-  display: flex;
-  flex-direction:row;
-  justify-content: center;
-  
-
-`
-
-/*background-image: url("../img/1_11050.jpg"); */
 
 function App () {
+  const[characters,setCharacters]= useState([]);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [access,setAccess] = useState(false)
+  const username = "mail@ggg.com";
+  const password = "123456";
+
+  
+  const onSearch=(character) =>{
+    fetch(`https://rickandmortyapi.com/api/character/${character}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.name) {
+          if(!isRepetida(data.id)){
+            setCharacters(oldChars => [...oldChars, data])
+            } else {
+                window.alert("No podes repetir personaje");
+              }
+            } else {
+              window.alert("No hay personaje con ese ID");
+            }
+          });
+        }
+    function isRepetida(id) {
+    let aux = false;
+    characters.forEach((character) => {
+        if(character.id === id) aux = true;
+      });
+    return aux;
+    }
+
+  const onClose = (id) =>{
+    setCharacters(
+      characters.filter(character => character.id !==id)
+    )
+  }
+  function login (userData) {
+    if (userData.password === password && userData.username === username) {
+      setAccess(true);
+      navigate('/home');
+    }
+  }
+  useEffect(() => {
+    !access && navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [access]);
+  
   return (
-    <Divprincipal className='App' style={{ padding: '25px' }}>
+    <div className={styles.App} >
+      {/* <h1 className="text-center mb-3">Characters</h1> */}
       <Header/>
-      <DivCard>
-        <Card
-          name={Rick.name}
-          species={Rick.species}
-          gender={Rick.gender}
-          image={Rick.image}
-          onClose={() => window.alert('Emulamos que se cierra la card')}
-        />
-      </DivCard>
-      <hr />
-      <DivCards>
-        
-        <Cards
-          characters={characters}
-        />
-        
-      </DivCards>
-      <hr />
-    </Divprincipal>
+      {location.pathname !== "/" && <Nav  onSearch={onSearch}/>}
+      {/* <Nav  onSearch={onSearch}/> */}
+        <div className="container">
+        <div className="row">
+        <Routes>
+          <Route exact path='/' element={<Form login={login}/>} />
+          <Route path='/home' element={<Cards onClose={onClose} characters={characters}/>} />
+          <Route path='/about' element={<About/>} />
+          <Route path='/favorites' element={<Favorites/>} />
+          <Route path='detail/:detailId' element={<Detail/>} />
+        </Routes>
+        </div>
+        </div>
+        <footer className={styles.footer}>© Julieta Ailyn Mosquera</footer>
+    </div>
   )
 }
 
-export default App
+
+export default App;

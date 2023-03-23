@@ -1,0 +1,89 @@
+.nav{
+    
+    background: rgba(35, 185, 84, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    /* backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px); */
+    border: 1px solid rgba(35, 185, 84, 0.93);
+    text-align: right;
+    margin:15px 15px 13px 5px;
+    padding: auto;
+    font-weight:bold ;
+}
+.link{
+    text-align: left;
+    text-decoration: none;
+    color:white;
+    padding: 10px;
+    align-items: left;
+    display: inline-block;
+    align-self:left;
+    margin: 10px;
+    font-size: large;
+
+}
+
+.link:hover{
+
+    background-color: rgb(70, 70, 70);
+    border-radius: 5px;
+    color: greenyellow;
+    box-shadow: 5px 5px 5px greenyellow;
+}
+.input {
+    width: 40%; border-radius: 8px;
+    border: 2px solid #0b5ed7;
+    box-shadow: 1px 3px 9px;
+    padding: 10px 15px;
+    
+    
+}
+.icon{
+    color: white;
+}
+
+.btn {
+    box-shadow: 1px 3px 9px;
+    text-align:right;
+    margin: 10px;
+}
+@media (max-width: 576px) {
+    .input { width: 80%; }
+}
+
+.footer{
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(85, 255, 79);
+    background-color: rgb(70, 70, 70);
+    border-radius: 50px;
+    margin: 10px;
+    padding-left: 20px;
+    margin-top: 180px;
+}
+
+.logo{
+    
+    text-decoration: none;
+    color:black;
+    padding: 10px;
+    justify-content: right;
+    display: inline-block;
+    margin-right: 50%;
+    width: 7em; 
+
+}
+.img{
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    padding-top: 20px;
+}
+
+.App{
+    background-image:url("https://wallpaperaccess.com/full/2880737.png");
+    height: 100%;
+    font-family: Ink Free;
+
+}
